@@ -1,6 +1,7 @@
 import QuestaoModel from "../model/questao"
 import RespostasModel from "../model/respostas"
 import Questao from "../componentes/Questao"
+import styles from "../styles/questao.module.css"
 
 export default function Home() {
   
@@ -13,7 +14,7 @@ export default function Home() {
   
   
   return (
-    <div>
+    <div className={styles.questao}>
      
      <Questao valor={questaoTest}/>
 
