@@ -7,6 +7,7 @@ export default function Pergunta(props: PerguntaInterface){
     return (
 
         <div>
+        
             <h1>{props.texto}</h1>
         </div>
     )

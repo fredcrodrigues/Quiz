@@ -13,13 +13,11 @@ export default class RespostasModel{
 
     static errada(valor:string){
         return new RespostasModel(valor, false)
- 
     }
     static certa(valor:string){
      return new RespostasModel(valor, true)
     }
     
-
     get valor(){
         return this.#valor
     }
@@ -29,12 +27,21 @@ export default class RespostasModel{
     get revelada(){
         return this.#revelada
     }
+
+    
     revelar(){
+    
         return new RespostasModel(this.#valor, this.#certa, true)
     }
+
+    static criarUsandoObjeto(obj: RespostasModel): RespostasModel{
+       
+        return new RespostasModel(obj.valor, obj.certa, obj.revelada)
+    }
+    
     paraObjeto(){
         return {
-            id:  this.#valor, 
+            valor:  this.#valor, 
             certa:  this.#certa,
             revelada: this.#revelada
         }
