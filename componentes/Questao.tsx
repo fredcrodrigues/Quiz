@@ -26,7 +26,7 @@ export default function Questao(props: QuestaoProps){
    function rederizarRespotas(){
         return questao.respostas.map((resposta, i) => {
          
-            return( <Resposta key={i}
+            return( <Resposta key={`${questao.id}${i}`}
                     valor={resposta} 
                     indice={i} 
                     letra={letras[i].valor}
@@ -42,7 +42,7 @@ export default function Questao(props: QuestaoProps){
         <div className={styles.questao}>
         
            <Pergunta texto={questao.pergunta} />
-           <Temporizador durancao={props.tempoPraresposta ?? 10} tempoEsgotado={props.tempoEsgotado}/>
+           <Temporizador key={questao.id} durancao={props.tempoPraresposta ?? 10} tempoEsgotado={props.tempoEsgotado}/>
            {rederizarRespotas()}
         </div>
     )

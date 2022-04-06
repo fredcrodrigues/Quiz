@@ -2,6 +2,7 @@ import styles from "../styles/Temporizador.module.css"
 import {CountdownCircleTimer} from "react-countdown-circle-timer"
 
 interface Tempo{
+    key: any
     durancao:number
     tempoEsgotado: () => void
 }

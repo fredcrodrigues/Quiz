@@ -1,22 +1,26 @@
 import QuestaoModel from "../model/questao"
-import RespostasModel from "../model/respostas"
+/*import RespostasModel from "../model/respostas"*/
 import Questionario from "../componentes/Questionario"
 import styles from "../styles/questao.module.css"
 import { useEffect, useState } from "react"
+import { useRouter } from "next/router"
 
 export default function Home() {
-  
-  const questaoMock = new QuestaoModel(1, "Melhor cor para Fredson?", [
+  //mock de teste
+  /*const questaoMock = new QuestaoModel(1, "Melhor cor para Fredson?", [
         RespostasModel.errada('Vermeha'),
         RespostasModel.errada('Verde'),
         RespostasModel.certa('Preta'),
         RespostasModel.errada('Rosa'),
-  ])
+  ])*/
 
  
   const BASE_URL = 'http://localhost:3000/api'
+
+  const router = useRouter()
   const [idsQuestoes, setIdCarregados] = useState<number[]>([])
-  const [questao, setQuestao] = useState<QuestaoModel>(questaoMock)
+  const [questao, setQuestao] = useState<QuestaoModel>()
+  const [respostaQuestao, setResp] = useState<number>(0)
   
   
   async function carregaIds(){
@@ -49,25 +53,60 @@ export default function Home() {
 
   function questaoRespondida(questao: QuestaoModel){
 
+
+     
+      const acertou = questao.acertou
+      setQuestao(questao)
+      setResp(respostaQuestao + (acertou ? 1 : 0))
+      
+      
+      console.log( respostaQuestao + (acertou ? 1 : 0))
+  } 
+
+  function irPraProximoquestao(proxId: number){
+    carregaQuestao(proxId)
   }
 
+  function finalizar(){
+    router.push({
+
+      pathname: "/resultados",
+      query:{
+        total: idsQuestoes.length,
+        certas: respostaQuestao
+      }
+
+    })
+  }
+  function idProximaQuestao(){
+    /// pega o indice d eacorod com o id especifico 
+    if(questao){
+      const proxIndice = idsQuestoes.indexOf(questao.id) + 1
+      return idsQuestoes[proxIndice]
+    }
+    
+  }
   function  irPraProximaPasso (){
 
+    const proxID = idProximaQuestao()
+
+    proxID ? irPraProximoquestao(proxID) : finalizar()
+
   }
 
 
-  return (
-
+  return questao ? (
     
-    <div className={styles.questao}>
-     
-        <Questionario 
-          questao={questao}
-          ultima={false}
-          questaoRespondida={questaoRespondida}
-          irPraProximaPasso = {irPraProximaPasso}
-        />
-      
-    </div>
-  )
+
+  <div className={styles.questao}>
+
+              <Questionario 
+                questao={questao}
+                ultima={irPraProximaPasso === undefined}
+                questaoRespondida={questaoRespondida}
+                irPraProximaPasso = {irPraProximaPasso}
+              />
+
+  </div>
+  ): false
 }
