@@ -24,4 +24,4 @@ npm start
 
 ![Screenshot](tela_perguntas.png)
 ## Tela de reusltados
-![Screenshot](tela_perguntas.png)
+![Screenshot](tela_resultados.png.png)
