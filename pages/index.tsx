@@ -14,8 +14,8 @@ export default function Home() {
         RespostasModel.errada('Rosa'),
   ])*/
 
-  const BASE_URL = 'http://localhost:3000/api' //test para o local
-  //const BASE_URL = 'https://projetoquiz.vercel.app/api'
+  //const BASE_URL = 'http://localhost:3000/api' //test para o local
+  const BASE_URL = 'https://projetoquiz.vercel.app/api'
 
   const router = useRouter()
   const [idsQuestoes, setIdCarregados] = useState<number[]>([])
